@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let bookName = prompt("Nhập tên sách").trim().toLowerCase();
+        let typeOfBook = prompt("Thể loại sách").trim().toLowerCase();
+        let statusOfBook = prompt("có sẵn /cho mượn").trim().toLowerCase();
+
+        if (typeOfBook == "khoa học" || typeOfBook == "lịch sử") {
+            if (statusOfBook == "có sẵn") {
+                console.log("Sách này có sẵn trong thư viện");
+            } else {
+                console.log("Sách đã được mượn");
+            }
+        }
+
+        if (typeOfBook == "văn học" || typeOfBook == "truyện") {
+            console.log("Sách này có thể đọc giải trí");
+        }
+    </script>
+</body>
+</html>

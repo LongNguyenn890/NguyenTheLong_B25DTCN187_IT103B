@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let nameOfBook = prompt("Tên sách");
+        let nameOfBorrower = prompt("Tên người mượn");
+        let rating = Number(prompt("Mức độ yêu thích (1 - 5)"));
+
+        if (rating == 5 || rating == 4) {
+            console.log("Đây là cuốn sách yêu thích của bạn, hãy đọc ngay!");
+        } else if (rating == 3) {
+            console.log("Sách này khá ổn, hãy đọc ngay");
+        } else {
+            console.log("Sách này có thể cân nhắc mượn lại sau");
+        }
+    </script>
+</body>
+</html>

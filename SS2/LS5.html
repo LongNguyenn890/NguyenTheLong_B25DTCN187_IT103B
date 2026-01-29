@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let bookName = prompt("Nhập tên sách:");
+        let bookStatus = prompt("Nhập trạng thái sách (co san / da muon)").toLowerCase().trim();
+        let publishYear = Number(prompt("Nhập năm xuất bản của sách"));
+
+        let currentYear = new Date().getFullYear();
+        let bookAge = currentYear - publishYear;
+
+        if (bookStatus === "co san" && bookAge <= 5) {
+            console.log("Sách này mới và có sẵn để mượn");
+        }
+        else if (bookStatus === "da muon" && bookAge <= 10) {
+            console.log("Sách này đã mượn nhưng khá mới, có thể mượn lại sau");
+        }
+        else if (bookStatus === "da muon" && bookAge > 10) {
+            console.log("Sách này đã mượn và khá cũ");
+        }
+        else if (bookStatus === "co san" && bookAge > 5) {
+            console.log("Sách này có sẵn nhưng đã lâu năm");
+        }
+        else {
+            console.log("Thông tin sách không hợp lệ");
+        }
+
+    </script>
+</body>
+
+</html>
