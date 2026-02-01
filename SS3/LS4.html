@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <script>
+            let tongYeuCau = 0;
+            let datThanhCong = 0;
+            let biTuChoi = 0;
+            let choXetDuyet = 0;
+            while (true) {
+                let caLviec = prompt("Có yêu cầu đặt mượn trước mới không? (có/không)");
+                if (caLviec.toLowerCase() === "không") {
+                    console.log("chương trình dừng lại");
+                    break;
+                }
+                if (caLviec.toLowerCase() !== "có") {
+                    alert("vui lòng nhập có hoặc không");
+                    continue;
+                }
+                let tenBanDoc = prompt("Nhập tên bạn đọc:");
+                let maSachdattruoc = prompt("Nhập mã sách:");
+                let tenSach = prompt("Nhập tên sách muốn mượn:");
+                let soNgaydukien = Number(prompt("Nhập số ngày dự kiến mượn (>=1):"));
+                let uuTien = +prompt("Nhập mức độ ưu tiên (1.Sinh Vien , 2.Giang vien/Nghien cuu sinh ,  3.Nhan vien Thu Vien / Dac cach):").toLowerCase();
+                if (isNaN(soNgaydukien) || soNgaydukien < 1 || !(uuTien >= 1 && uuTien <= 3)) {
+                    alert("Dữ liệu không hợp lệ, vui lòng nhập lại.");
+                    continue;
+                }
+                tongYeuCau++;
+                if (soNgaydukien > 45) {
+                    alert("Yêu cầu bị từ chối: Số ngày mượn vượt quá 45 ngày.");
+                    biTuChoi++;
+                } else if (uuTien === 3) {
+                    alert("Đặt trước thành công , ưu tiên đặc cách cao nhất");
+                    datThanhCong++;
+                } else if (uuTien === 2 && soNgaydukien <= 30) {
+                    alert("Đặt trước thành công , ưu tiên giảng viên/nghiên cứu sinh");
+                    datThanhCong++;
+                } else if (uuTien === 1 && soNgaydukien <= 21) {
+                    alert("Đặt trước thành công ");
+                    datThanhCong++;
+                } else {
+                    console.log("đặt trước tạm thời - chờ xét duyệt thêm");
+                    choXetDuyet++;
+                }
+            }
+            console.log(" BÁO CÁO CA LÀM VIỆC ");
+            console.log("Tổng số yêu cầu đã xử lý:", tongYeuCau);
+            console.log("Số yêu cầu đặt trước thành công:", datThanhCong);
+            console.log("Số yêu cầu bị từ chối:", biTuChoi);
+            console.log("Số yêu cầu chờ xét duyệt:", choXetDuyet);
+        </script>
+    </body>
+
+</html>

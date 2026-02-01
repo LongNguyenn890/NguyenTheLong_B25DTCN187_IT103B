@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LS1</title>
+</head>
+
+<body>
+    <script>
+        let totalBorrow = Number(prompt("Hôm nay có bao nhiêu lượt mượn sách?"));
+
+        if (!Number.isInteger(totalBorrow) || totalBorrow <= 0) {
+            console.log("Số lượt mượn phải là số nguyên dương!");
+        } else {
+            let successfulBorrow = 0;
+
+            for (let i = 1; i <= totalBorrow; i++) {
+                console.log(`--- Lượt mượn thứ ${i} ---`);
+
+                let borrowerName = prompt("Nhập tên người mượn:");
+                let bookName = prompt("Nhập tên sách:");
+                let borrowDays = Number(prompt("Nhập số ngày mượn (1 - 30):"));
+
+                if (borrowDays >= 1 && borrowDays <= 14) {
+                    console.log("✅ Mượn thành công");
+                    successfulBorrow++;
+                } else if (borrowDays > 14) {
+                    console.log("Cảnh báo: Thời gian mượn vượt quy định (tối đa 14 ngày)");
+                } else {
+                    console.log("Số ngày mượn không hợp lệ");
+                }
+            }
+
+            console.log("=== THỐNG KÊ CUỐI NGÀY ===");
+            console.log("Tổng số lượt mượn thành công:", successfulBorrow);
+        }
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let passWord_true = "admin123";
+        let i = 1;
+        let choice;
+        let loginSuccess = false;
+        while (i <= 3) {
+            let passWord = prompt("Nhap mat khau").trim();
+            if (passWord_true === passWord) {
+                loginSuccess = true;
+                console.log("Dang nhap thanh cong !!!");
+                do {
+                    choice = prompt(
+                        "Chon chuc nang\n" +
+                        "1-Nhap lo sach moi\n" +
+                        "2-Ve so do ke sach\n" +
+                        "3-Thoat"
+                    );
+
+                    switch (choice) {
+                        case "1":
+                            let quantity = Number(prompt("Ban muon nhap bao nhieu cuon sach"));
+                            let totalPrice = 0;
+                            let validPrice = 0;
+                            for (let i = 0; i < quantity; i++) {
+                                let price = Number(prompt("Nhap gia tien"));
+                                if (price <= 0) {
+                                    console.log("Gia tien cua sach thu " + i + " " + "khong hop le");
+                                    continue;
+                                }
+                                totalPrice += price;
+                                validPrice++;
+                            }
+                            if (validPrice > 0) {
+                                console.log(`Tong gia tri nhap kho dot nay la: ${totalPrice}`);
+                            } else {
+                                console.log("Khong co cuon nao hop le");
+                            }
+                            break;
+                        case "2":
+                            for (let i = 1; i <= 3; i++) {
+                                for (let j = 1; j <= 5; j++) {
+                                    if (i == 2 && j == 3) {
+                                        console.log("Khu vuc " + i + "-" + "Ke " + j + " (Dang sua chua)\n");
+                                        continue;
+                                    }
+                                    console.log("Khu vuc " + i + "-" + "Ke " + j + "\n");
+                                }
+                            }
+                        case 3:
+                            console.log("Hen gap lai !!!");
+                            break;
+                    }
+                } while (choice != "3");
+                break;
+            } else {
+                console.log(`Sai mat khau! Con ${3 - i} lan thu`);
+                i++;
+            }
+        }
+
+        if (!loginSuccess) {
+            console.log("HE THONG BI KHOA");
+        }
+
+    </script>
+</body>
+
+</html>

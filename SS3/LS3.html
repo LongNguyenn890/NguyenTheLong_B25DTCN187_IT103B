@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <script>
+            let soLanthatbai = 0;
+            let soLanthanhcong = 0;
+            while (true) {
+                let yeuCau = prompt("có yêu cầu gia hạn mới không?");
+                if (yeuCau.toLowerCase() === "không") {
+                    console.log("chương trình dừng lại");
+                    break;
+                }
+                if (yeuCau.toLowerCase() !== "có") {
+                    alert("vui lòng nhập có hoặc không");
+                    continue;
+                }
+                let tenBanDoc = prompt("Nhập tên bạn đọc:");
+                let tenSach = prompt("Nhập tên sách:");
+                let soNgayDaMuon = Number(prompt("Nhập số ngày đã mượn hiện tại (>=1):"));
+                let soNgayGiaHan = Number(prompt("Nhập số ngày muốn gia hạn thêm (>=1):"));
+                if (isNaN(soNgayDaMuon) || isNaN(soNgayGiaHan) || soNgayDaMuon < 1 || soNgayGiaHan < 1) {
+                    alert("Số ngày không hợp lệ, vui lòng nhập lại.");
+                    soLanthatbai++;
+                    continue;
+                }
+                let tongSoNgay = soNgayDaMuon + soNgayGiaHan;
+                if (tongSoNgay > 60) {
+                    alert("Tổng số ngày mượn không được vượt quá 60 ngày.");
+                    soLanthatbai++;
+                    continue;
+                } else if (tongSoNgay > 45) {
+                    alert("Không được gia hạn: Đã mượn quá lâu (>45 ngày)");
+                    soLanThatBai++;
+                } else if (tongSoNgay <= 30) {
+                    alert("Gia hạn thành công");
+                    soLanThanhCong++;
+                } else {
+                    alert("không được gia hạn");
+                    soLanthatbai++;
+                }
+
+
+            }
+            console.log(" THỐNG KÊ CA LÀM VIỆC ");
+            console.log("Số lần gia hạn thành công:", soLanThanhCong);
+            console.log("Số lần gia hạn không thành công:", soLanThatBai);
+        </script>
+    </body>
+
+</html>
