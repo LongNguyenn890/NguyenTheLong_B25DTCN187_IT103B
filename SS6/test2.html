@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let numbers = [100,200,300,400];
+        console.log("Giá trị của từng phần tử trong mảng:");
+        for (let element of numbers) {
+            console.log(element);
+        }
+        console.log("Vị trí index của từng phần tử trong mảng:");
+        for (let index in numbers) {
+            console.log(`${numbers[index]} ở vị trí ${index}`);
+        }
+        let total = 0;
+        for (let i = 0; i < numbers.length; i++) {
+            if (i % 2 == 0) {
+                total += numbers[i];
+            }
+        }
+        console.log(`Tổng các phần tử trong mảng ở vị trí chẵn là ${total}`);
+    </script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let booksId = [];
+        let booksName = [];
+        let bookStatus = [];
+        let n;
+        let choice;
+        do {
+            n = Number(prompt("Có bao nhiêu cuốn sách cần kiểm tra tình trạng hôm nay ?"));
+            if (!Number.isInteger(n) || n < 0) {
+                alert("Dữ liệu nhập vào phải là số nguyên dương");
+            }
+        } while (!Number.isInteger(n) || n < 0);
+        let bookId;
+        let bookName;
+        for (let i = 0; i < n; i++) {
+            do {
+                bookId = prompt("Nhập mã sách");
+                if (bookId == "") {
+                    alert("Không được để trống");
+                }
+            } while (bookId == "");
+            booksId.push(bookId);
+            do {
+                bookName = prompt("Nhập tên sách");
+                if (bookName == "") {
+                    alert("Không được để trống");
+                }
+            } while (bookName == "");
+            booksName.push(bookName);
+            let menu = "---Tình trạng ban đầu---\n";
+            menu += "1. Hỏng nhẹ\n";
+            menu += "2. Hỏng nặng\n";
+            menu += "3. Cần sửa gấp\n";
+            menu += "Nhập lựa chọn";
+            choice = Number(prompt(menu));
+            switch (choice) {
+                case 1:
+                    bookStatus.push("Hỏng nhẹ")
+                    break;
+                case 2:
+                    bookStatus.push("Hỏng nặng");
+                    break;
+                case 3:
+                    bookStatus.push("Cần sửa gấp");
+                    break;
+            }
+        }
+        for (let j = 0; j < n; j++) {
+            console.log(`${booksId[j]} - ${booksName[j]} - ${bookStatus[j]}`);
+        }
+
+
+        do {
+            console.log("===== CHẾ ĐỘ CHỈNH SỬA =====");
+            console.log("1. Sửa tình trạng sách");
+            console.log("2. Xóa sách");
+            console.log("0. Kết thúc và in báo cáo");
+
+            choice = Number(prompt("Bạn chọn chức năng:"));
+
+            if (choice === 1) {
+                let editId = prompt("Nhập mã sách cần sửa:");
+                let foundIndex = -1;
+
+                // Tìm sách
+                for (let i = 0; i < bookId.length; i++) {
+                    if (bookId[i] === editId) {
+                        foundIndex = i;
+                        break;
+                    }
+                }
+
+                if (foundIndex !== -1) {
+                    let newStatus;
+                    do {
+                        newStatus = Number(prompt(
+                            "Chọn tình trạng mới:\n" +
+                            "1. Hỏng nhẹ\n" +
+                            "2. Hỏng nặng\n" +
+                            "3. Cần sửa gấp\n" +
+                            "4. Đã sửa xong\n" +
+                            "5. Loại bỏ"
+                        ));
+                    } while (newStatus < 1 || newStatus > 5);
+
+                    bookStatus[foundIndex] = newStatus;
+                    alert("Cập nhật thành công!");
+                } else {
+                    alert("Không tìm thấy mã sách!");
+                }
+            }
+
+            else if (choice === 2) {
+                let deleteId = prompt("Nhập mã sách cần xóa:");
+                let deleteIndex = -1;
+
+                for (let i = 0; i < bookId.length; i++) {
+                    if (bookId[i] === deleteId) {
+                        deleteIndex = i;
+                        break;
+                    }
+                }
+
+                if (deleteIndex !== -1) {
+                    bookId.splice(deleteIndex, 1);
+                    bookName.splice(deleteIndex, 1);
+                    bookStatus.splice(deleteIndex, 1);
+                    alert("Đã xóa sách khỏi danh sách!");
+                } else {
+                    alert("Không tìm thấy mã sách!");
+                }
+            }
+
+            if (choice === 1 || choice === 2) {
+                console.log("===== DANH SÁCH HIỆN TẠI =====");
+                for (let i = 0; i < bookId.length; i++) {
+                    console.log(
+                        `${i + 1}. ${bookId[i]} - ${bookName[i]} - Tình trạng: ${bookStatus[i]}`
+                    );
+                }
+            }
+
+        } while (choice !== 0);
+
+        let totalBooks = bookId.length;
+        let fixedCount = 0;
+        let removedCount = 0;
+
+        for (let i = 0; i < bookStatus.length; i++) {
+            if (bookStatus[i] === 4) fixedCount++;
+            if (bookStatus[i] === 5) removedCount++;
+        }
+
+        console.log("===== BÁO CÁO CUỐI =====");
+        console.log("Tổng số sách còn lại:", totalBooks);
+        console.log("Số sách đã sửa xong:", fixedCount);
+        console.log("Số sách loại bỏ:", removedCount);
+
+        if (totalBooks > 0) {
+            console.log("Danh sách sách còn lại:");
+            for (let i = 0; i < bookId.length; i++) {
+                console.log(
+                    `${bookId[i]} - ${bookName[i]} - Tình trạng: ${bookStatus[i]}`
+                );
+            }
+        } else {
+            console.log("Không còn sách nào trong danh sách.");
+        }
+
+
+
+    </script>
+</body>
+
+</html>

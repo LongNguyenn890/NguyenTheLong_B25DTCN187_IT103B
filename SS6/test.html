@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let students = ["Quý", "Nam","Lan", "Hùng", "Nam"];
+        let reverseStudent = students.slice().reverse();
+        console.log("Mảng sau khi đảo ngược:");
+        console.log(reverseStudent);
+        let available = false;
+        for (let i = 0; i < students.length; i++) {
+            if ("Lan" == students[i]) {
+                available = true;
+                break;
+            } 
+        }
+        if (available) {
+            console.log("Tên Lan có tồn tại trong mảng");
+        } else {
+            console.log("Tên Lan không tồn tại trong mảng")
+        }
+
+        let indexOfNam = students.indexOf("Nam");
+        console.log("Vị trí index đầu tiên của Nam",indexOfNam);
+    </script>
+</body>
+</html>

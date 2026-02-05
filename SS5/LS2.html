@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let array = [];
+        let late = Number(prompt("Hom nay co bao nhieu cuon sach bi tra muon"));
+        if (!Number.isInteger(late) && late < 0) {
+            alert("Gia tri nhap vao phai la so nguyen duong !!");
+        }
+        for (let i = 0; i < late; i++) {
+            let book = prompt("Nhap ten sach bi tra muon: ");
+            array.push(book);
+        }
+        console.log(`Tong so sach tra muon la: ${late}`);
+        console.log("Danh sach cac cuon sach tra muon: ");
+        let result = array.map((bookname, index) => `${index + 1}. ${bookname}`).join("\n");
+        console.log(result);
+        let count = 0;
+        for (let j = 0; j < array.length; j++) {
+            if (array[j].length > 20) {
+                count++;
+            }
+        }
+        console.log(`So luong sach tren 20 ki tu la: ${count}`);
+    </script>
+</body>
+</html>

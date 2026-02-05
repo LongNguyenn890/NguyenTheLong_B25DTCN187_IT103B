@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let readerCardIds = [];
+        let readerNames = [];
+        let borrowedBookCodes = [];
+        let overdueDays = [];
+        let n;
+        do {
+            n = Number(prompt("Hôm nay có bao nhiêu bạn đọc bị ghi nhận quá hạn?"));
+        } while (!Number.isInteger(n) || n <= 0);
+        for (let i = 0; i < n; i++) {
+            let cardId, name, books, days;
+
+            // ===== Mã thẻ bạn đọc (duy nhất) =====
+            do {
+                cardId = prompt("Nhập mã thẻ bạn đọc:");
+                if (cardId === "") {
+                    alert("Mã thẻ không được để trống!");
+                    continue;
+                }
+
+                let isDuplicate = false;
+                for (let j = 0; j < readerCardIds.length; j++) {
+                    if (readerCardIds[j] === cardId) {
+                        isDuplicate = true;
+                        break;
+                    }
+                }
+
+                if (isDuplicate) {
+                    alert("Mã thẻ đã tồn tại!");
+                    cardId = "";
+                }
+            } while (cardId === "");
+
+            // ===== Tên bạn đọc =====
+            do {
+                name = prompt("Nhập tên bạn đọc:");
+                if (name === "") {
+                    alert("Tên không được để trống!");
+                }
+            } while (name === "");
+
+            // ===== Mã sách đang mượn =====
+            do {
+                books = prompt("Nhập các mã sách đang mượn (cách nhau bởi dấu phẩy):");
+                if (books === "") {
+                    alert("Không được để trống!");
+                }
+            } while (books === "");
+
+            // ===== Số ngày quá hạn =====
+            do {
+                days = Number(prompt("Nhập số ngày quá hạn:"));
+                if (!Number.isInteger(days) || days < 0) {
+                    alert("Số ngày phải là số nguyên ≥ 0!");
+                }
+            } while (!Number.isInteger(days) || days < 0);
+
+            // ===== Lưu vào mảng =====
+            readerCardIds.push(cardId);
+            readerNames.push(name);
+            borrowedBookCodes.push(books);
+            overdueDays.push(days);
+        }
+        let countOver10 = 0;
+
+        for (let i = 0; i < overdueDays.length; i++) {
+            if (overdueDays[i] >= 10) {
+                countOver10++;
+            }
+        }
+
+        console.log("a. Số bạn đọc quá hạn ≥ 10 ngày:", countOver10);
+        console.log("b. Mã thẻ bạn đọc mượn cả sách JS và PYT:");
+
+        let found = false;
+
+        for (let i = 0; i < borrowedBookCodes.length; i++) {
+            let booksLower = borrowedBookCodes[i].toUpperCase();
+
+            if (booksLower.includes("JS") && booksLower.includes("PYT")) {
+                console.log(readerCardIds[i]);
+                found = true;
+            }
+        }
+
+        if (!found) {
+            console.log("Không có bạn đọc nào thỏa điều kiện.");
+        }
+        let maxIndex = 0;
+
+        for (let i = 1; i < overdueDays.length; i++) {
+            if (overdueDays[i] > overdueDays[maxIndex]) {
+                maxIndex = i;
+            }
+        }
+
+        console.log(
+            "c. Bạn đọc quá hạn nhiều nhất:",
+            readerNames[maxIndex],
+            "-",
+            overdueDays[maxIndex],
+            "ngày"
+        );
+        let countOver7 = 0;
+
+        for (let i = 0; i < overdueDays.length; i++) {
+            if (overdueDays[i] >= 7) {
+                countOver7++;
+            }
+        }
+
+        console.log("d. Cảnh báo:");
+
+        if (countOver7 === 0) {
+            console.log("Tình hình trả sách hôm nay khá tốt!");
+        } else if (countOver7 >= 1 && countOver7 <= 4) {
+            console.log("Cần gửi nhắc nhở cho một số bạn đọc!");
+        } else {
+            console.log("Tình trạng quá hạn nghiêm trọng! Cần liên hệ ngay!");
+        }
+
+    </script>
+</body>
+
+</html>

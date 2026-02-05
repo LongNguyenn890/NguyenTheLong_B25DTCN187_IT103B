@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let books = ["Nha Gia Kim", "Dac Nhan Tam", "Tuan Lam Viec 4 Gio"];
+        let choice;
+        do {
+            let menu = "========THU VIEN KHOA HOC=======\n";
+            menu += "1. Hien thi sach\n";
+            menu += "2. Them sach moi\n";
+            menu += "3. Muon sach\n";
+            menu += "4. Cap nhat sach\n";
+            menu += "5. Sap xep\n";
+            menu += "0. Thoat\n";
+            menu += "Chon chuc nang";
+            choice = Number(prompt(menu));
+
+            switch (choice) {
+                case 1:
+                    // let result = "";
+                    // console.log(`==> Danh sach hien tai (${books.length} cuon)`);
+                    // for (let i = 0; i < books.length; i++) {
+                    //     result += i + 1 + ". " + books[i];
+                    //     if (i < books.length - 1) {
+                    //         result += " - ";
+                    //     }
+                    // }
+                    // console.log(result);
+                    let result = books
+                        .map((book, index) => `${index + 1}. ${book}`)
+                        .join(" - ");
+
+                    console.log(result);
+                    break;
+
+                case 2:
+                    let newBook = prompt("Nhap ten sach moi: ");
+                    let addBook = books.push(newBook);
+                    alert("Da them thanh cong !");
+                    break;
+
+                case 3:
+                    let borrowBook = prompt("Nhap sach muon muon:");
+                    if (books.indexOf(borrowBook) == -1) {
+                        alert("Khong co sach ton trong kho");
+                    }
+
+                    let delBook = books.splice(books.indexOf(borrowBook), 1);
+                    alert(`Da cho muon sach ${borrowBook}`);
+                    break;
+                case 4:
+                    let oldBook = prompt("Nhap ten sach cu can sua:");
+                    let indexOfBook = books.indexOf(oldBook);
+                    if (indexOfBook == -1) {
+                        alert("Khong tim thay sach trong kho");
+                    } else {
+                        let updateBook = prompt("Nhap ten sach moi");
+                        books[indexOfBook] = updateBook;
+                    }
+                    break;
+                case 5:
+                    let sortBook = books.sort();
+                    console.log(sortBook);
+                    break;
+
+                case 0:
+                    alert("Da thoat chuong trinh !!!!");
+                    break;
+                default:
+                    alert("Khong hop le !!! Vui long chon chuc nang 1-5");
+                    break;
+            }
+        } while (choice != 0);
+    </script>
+</body>
+
+</html>

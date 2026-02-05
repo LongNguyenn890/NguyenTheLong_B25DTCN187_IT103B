@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let array = [];
+        let n = Number(prompt("Ban muon nhap bao nhieu cuon sach?"));
+        let book = "";
+        for (let i = 0; i < n; i++) {
+            book = prompt(`Nhap ten sach thu ${i + 1}`);
+            array.push(book);
+        }
+        console.log(`Tong so sach da duoc tra ${n}`);
+        console.log(array.map((bookName, index) => `${index + 1}. ${bookName}`).join("\n"));
+    </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let bookId = [];
+        let bookName = [];
+        let inventoryQuantity = [];
+
+        let n;
+        do {
+            n = Number(prompt("Co bao nhieu cuon sach can kiem tra bo sung hom nay?"));
+            if (!Number.isInteger(n) || n <= 0) {
+                alert("Gia tri nhap vao phai la so nguyen duong");
+            }
+        } while (!Number.isInteger(n) || n <= 0);
+
+        for (let i = 0; i < n; i++) {
+
+            let id;
+            do {
+                id = prompt("Nhap ma sach:");
+                if (id === "") alert("Khong duoc de trong !!");
+            } while (id === "");
+            bookId.push(id);
+
+            let name;
+            do {
+                name = prompt("Nhap ten sach:");
+                if (name === "") alert("Khong duoc de trong !!");
+            } while (name === "");
+            bookName.push(name);
+
+            let quantity;
+            do {
+                quantity = Number(prompt("Nhap so luong ton kho:"));
+                if (quantity < 0 || !Number.isInteger(quantity)) {
+                    alert("So luong phai la so nguyen >= 0");
+                }
+            } while (quantity < 0 || !Number.isInteger(quantity));
+            inventoryQuantity.push(quantity);
+        }
+        let quantityAvailable = 0;
+        let unAvailable = [];
+
+        console.log(`Danh sach can xem xet bo sung (${n} loai)`);
+
+        for (let j = 0; j < n; j++) {
+            console.log(
+                `${j + 1}. Ma: ${bookId[j]} - Ten: ${bookName[j]} - Con: ${inventoryQuantity[j]}`
+            );
+
+            if (inventoryQuantity[j] === 0) {
+                unAvailable.push(bookId[j]);
+            }
+
+            if (inventoryQuantity[j] <= 5) {
+                quantityAvailable++;
+            }
+        }
+
+        console.log(`So sach con ton kho <= 5 ban: ${quantityAvailable}`);
+        console.log(
+            `Cac ma sach het hang: ${unAvailable.length > 0 ? unAvailable.join(", ") : "Khong co"}`
+        );
+    </script>
+</body>
+
+</html>
