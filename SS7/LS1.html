@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let playerIds = [];
+        let playerPositions = [];
+        let n;
+        do {
+            n = Number(prompt("Co bao nhieu cau thu can nhap vao doi bong?"));
+            if (!Number.isInteger(n) || n < 0) {
+                alert("Phai la so nguyen duong");
+            }
+        } while (!Number.isInteger(n) || n < 0);
+        let id;
+        let name;
+        for (let i = 0; i < n; i++) {
+
+            do {
+                id = prompt("Nhap ma cau thu");
+                if (playerIds.includes(id)) {
+                    alert("Khong duoc trung");
+                }
+            } while (playerIds.includes(id));
+            playerIds.push(id);
+            let position;
+            do {
+                let menu = "---Nhap vi tri---\n";
+                menu += "1. Thu mon\n";
+                menu += "2. Hau ve\n";
+                menu += "3. Tien ve\n"
+                menu += "4. Tien dao\n";
+                menu += "Nhap lua chon";
+                position = Number(prompt(menu));
+                switch (position) {
+                    case 1:
+                        playerPositions.push("Thu mon");
+                        break;
+                    case 2:
+                        playerPositions.push("Hau ve");
+                        break;
+                    case 3:
+                        playerPositions.push("Tien ve");
+                        break;
+                    case 4:
+                        playerPositions.push("Tien dao");
+                        break;
+                    default:
+                        alert("Vui long chon lai");
+                }
+            } while (position < 1 || position > 4);
+        }
+        printTeamRoster();
+        position = prompt("Nhap vi tri");
+        let indexes = findPlayerbyPosition(position);
+        console.log(`Chi so cac cau thu o vi tri ${position} la ${indexes}`);
+
+
+
+
+        function printTeamRoster() {
+            for (let index in playerIds) {
+                console.log(`${Number(index) + 1}. ${playerIds[index]} - ${playerPositions[index]}`);
+            }
+        }
+
+        function findPlayerbyPosition(position) {
+            let result = [];
+            for (let index in playerPositions) {
+                if (position == playerPositions[index]) {
+                    result.push(index);
+                }
+            }
+            return result;
+        }
+    </script>
+</body>
+
+</html>

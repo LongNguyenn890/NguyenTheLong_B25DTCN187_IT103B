@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let players = [];
+        let goals = [];
+        function addPlayer(name, goal) {
+            players.push(name);
+            goals.push(goal);
+            alert("Da them cau thu");
+        }
+
+        function showSquad() {
+            for (let index in players) {
+                console.log(`${Number(index) + 1}. ${players[index]} - ${goals[index]} ban`);
+            }
+        }
+
+        let getTotalGoals = function () {
+            let totalGoals = 0
+            for (let index in goals) {
+                totalGoals += goals[index];
+            }
+            return totalGoals;
+        };
+
+        function findMostGoals(goalsArray) {
+            let max = goalsArray[0];
+            for (let index in goals) {
+                if (goals[index] > max) {
+                    max = goals[index];
+                }
+            }
+            return max;
+        }
+        let choice;
+        do {
+            let menu = "---QUAN LY DOI BONG---\n";
+            menu += "1. Nhap cau thu moi\n";
+            menu += "2. Xem danh sach doi hinh\n";
+            menu += "3. Xem thanh tich toan doi\n";
+            menu += "4. Tim Vua pha luoi\n";
+            menu += "0. Thoat"
+            choice = Number(prompt(menu));
+            switch (choice) {
+                case 1:
+                    let name = prompt("Nhap ten cau thu:");
+                    let goal = Number(prompt("Nhap so ban thang"));
+                    addPlayer(name ,goal);
+                    break;
+                case 2:
+                    showSquad();
+                    break;
+                case 3:
+                    console.log(`Tong so ban thang cua toan doi la: ${getTotalGoals()}`);
+                    break;
+                case 4:
+                    let maxGoal = findMostGoals(goals);
+                    let index = goals.indexOf(maxGoal);
+                    console.log(`Vua pha luoi: ${players[index]} - ${maxGoals} ban`);
+                    break;
+            }
+        } while (choice != 0);
+    </script>
+</body>
+
+</html>

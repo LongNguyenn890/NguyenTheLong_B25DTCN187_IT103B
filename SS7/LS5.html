@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let players = [
+            "P001-Nguyễn Văn An-Thủ môn",
+            "P002-Trần Minh Long-Hậu vệ",
+            "P003-Lê Hoàng-Tiền vệ",
+            "P004-Phạm Quốc Trường Giang-Tiền đạo",
+            "P005-Nguyễn Anh-Hậu vệ"
+        ];
+        function getAllPositions() {
+            let positions = [];
+
+            for (let player of players) {
+                let parts = player.split("-");
+                let position = parts[2];
+
+                if (!positions.includes(position)) {
+                    positions.push(position);
+                }
+            }
+
+            return positions;
+        }
+        function findPlayersWithLongestName() {
+            let longestName = "";
+
+            for (let player of players) {
+                let parts = player.split("-");
+                let name = parts[1];
+
+                if (name.length > longestName.length) {
+                    longestName = name;
+                }
+            }
+
+            return longestName;
+        }
+        function countPlayersStartingWithLetter(letter) {
+            let count = 0;
+            let target = letter.toLowerCase();
+
+            for (let player of players) {
+                let parts = player.split("-");
+                let name = parts[1];
+
+                if (name[0].toLowerCase() === target) {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+        console.log("Các vị trí trong đội:", getAllPositions());
+        console.log("Cầu thủ có tên dài nhất:", findPlayersWithLongestName());
+        console.log(
+            "Số cầu thủ có tên bắt đầu bằng chữ 'N':",
+            countPlayersStartingWithLetter("N")
+        );
+
+    </script>
+</body>
+
+</html>
