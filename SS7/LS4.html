@@ -9,22 +9,44 @@
 
 <body>
     <script>
-        let playerIds = ["P001", "P002", "P003"];
-        let playerNames = ["Nguyễn Văn A", "Trần Văn B", "Lê Văn C"];
-        let playerJerseyNumbers = [1, 10, 7];
+        let players = [
+            "P01-Nguyễn Văn A-Thủ Môn",
+            "P02-Trần Văn B-Hậu Vệ",
+            "P03-Lê Văn C-Tiền Vệ",
+            "P04-Phạm Văn D-Tiền Đạo",
+            "P05-Hoàng Văn E-Tiền Đạo",
+            "P06-Vũ Văn F-Thủ Môn"
+        ];
         function printTeamRoster() {
-            console.log("===== DANH SÁCH ĐỘI BÓNG =====");
-            for (let i = 0; i < playerIds.length; i++) {
-                console.log(
-                    `${i + 1}. Mã: ${playerIds[i]} | Tên: ${playerNames[i]} | Số áo: ${playerJerseyNumbers[i]}`
-                );
+            console.log("DANH SÁCH CẦU THỦ:");
+            for (let i = 0; i < players.length; i++) {
+                let parts = players[i].split("-");
+                let id = parts[0];
+                let name = parts[1];
+                let position = parts[2];
+
+                console.log(`${i + 1}. ${id} | ${name} | ${position}`);
             }
         }
-        function updatePlayerNameAndJersey(playerId, newName, newJerseyNumber) {
-            for (let i = 0; i < playerIds.length; i++) {
-                if (playerIds[i] === playerId) {
-                    playerNames[i] = newName;
-                    playerJerseyNumbers[i] = newJerseyNumber;
+        function countPlayerByPostion(players) {
+            let result = {};
+
+            for (let i = 0; i < players.length; i++) {
+                let position = players[i].split("-")[2];
+
+                if (result[position] === undefined) {
+                    result[position] = 1;
+                } else {
+                    result[position]++;
+                }
+            }
+
+            return result;
+        }
+        function hasGoalkeeper() {
+            for (let i = 0; i < players.length; i++) {
+                let position = players[i].split("-")[2];
+                if (position === "Thủ Môn") {
                     return true;
                 }
             }
@@ -32,29 +54,12 @@
         }
         printTeamRoster();
 
-        let updateId = prompt("Nhập mã cầu thủ muốn cập nhật (ví dụ: P001):");
+        console.log("Số lượng cầu thủ theo vị trí:");
+        console.log(countPlayerByPostion(players));
 
-        let index = playerIds.indexOf(updateId);
+        console.log("Đội có thủ môn không?");
+        console.log(hasGoalkeeper());
 
-        if (index !== -1) {
-            let newName = prompt("Nhập tên mới cho cầu thủ:");
-
-            let newJerseyNumber;
-            do {
-                newJerseyNumber = Number(
-                    prompt("Nhập số áo mới (từ 1 đến 99):")
-                );
-            } while (!Number.isInteger(newJerseyNumber) || newJerseyNumber < 1 || newJerseyNumber > 99);
-
-            let result = updatePlayerNameAndJersey(updateId, newName, newJerseyNumber);
-
-            if (result) {
-                alert("Cập nhật thành công!");
-                printTeamRoster();
-            }
-        } else {
-            alert("Không tìm thấy cầu thủ với mã này!");
-        }
 
     </script>
 </body>
