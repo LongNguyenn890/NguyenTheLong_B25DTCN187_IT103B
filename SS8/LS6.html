@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function reportByPosition(players) {
+            let positions = ["Forward", "Midfielder", "Defender", "Goalkeeper"];
+            positions.map((position) => {
+                let group = players.map(player => player.split(" - ")).filter(player => player[1] == position);
+                let totalGoals = group.reduce((sum, player) => sum + Number(player[2]), 0);
+                let totalAssists = group.reduce((sum, player) => sum + Number(player[3]), 0);
+                let totalMatchs = group.reduce((sum, player) => sum + Number(player[4]), 0);
+
+                let avgPerformance = totalMatchs == 0 ? 0 : ((totalGoals + totalAssists) / totalMatchs).toFixed(2);
+                return [position, group.length, totalGoals, totalAssists, totalMatchs, avgPerformance];
+            }).forEach(data => {
+                console.log(`--- ${data[0]} ---`);
+                console.log(`Số cầu thủ: ${data[1]}`);
+                console.log(`Tổng bàn thắng: ${data[2]}`);
+                console.log(`Tổng kiến tạo: ${data[3]}`);
+                console.log(`Tổng số trận: ${data[4]}`);
+                console.log(`Trung bình hiệu suất/trận: ${data[5]}`);
+                console.log("---------------------------");
+            });
+        }
+
+        const players = [
+            "Messi - Forward - 25 - 15 - 34",
+            "Ronaldo - Forward - 30 - 10 - 38",
+            "Neymar - Forward - 18 - 20 - 32",
+            "De Bruyne - Midfielder - 8 - 25 - 35",
+            "Kante - Midfielder - 2 - 5 - 36",
+            "Van Dijk - Defender - 5 - 3 - 33",
+            "Alisson - Goalkeeper - 0 - 1 - 37",
+        ];
+
+        reportByPosition(players);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function getUpperNames(players) {
+            let upperName = players.map((element, index) => {
+                return element.toUpperCase();
+            });
+            return upperName;
+        } 
+        const playerNames = [
+            "Messi",
+            "Ronaldo",
+            "Neymar",
+            "De Bruyne",
+        ];
+        console.log(getUpperNames(playerNames));
+    </script>
+</body>
+
+</html>

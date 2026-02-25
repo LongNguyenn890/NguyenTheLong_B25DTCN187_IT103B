@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const squad = [
+            ["Nguyen Van A", 10, "FW"],
+            ["Tran Van B", 5, "MF"],
+            ["Le Van C", 2, "DF"],
+            ["Pham Van D", 12, "FW"],
+            ["Hoang Van E", 0, "GK"],
+            ["Dang Van F", 7, "MF"]
+        ];
+        let choice;
+        do {
+            let menu = "---QUẢN LÝ ĐỘI BÓNG---\n";
+            menu += "1. Xem danh sách\n";
+            menu += "2. Tìm kiếm\n";
+            menu += "3. Lọc vị trí\n";
+            menu += "4 Tổng bàn thắng\n";
+            menu += "5. Kiểm tra hiệu xuất\n";
+            menu += "0. Thoát\n";
+            menu += "Nhập lựa chọn của bạn:";
+            choice = Number(prompt(menu));
+
+            switch (choice) {
+                case 1:
+                    displaySquad(squad);
+                    break;
+
+                case 2:
+                    findPlayer(squad);
+                    break;
+
+                case 3:
+                    filteredPlayerbyPosition(squad);
+                    break;
+
+                case 4:
+                    reportTotalGoal(squad);
+                    break;
+
+                case 5:
+                    performanceTesting(squad);
+                    break;
+
+                case 0:
+                    alert("Bạn đã thoát khỏi chương trình.....");
+            }
+        } while (choice != 0);
+
+        function displaySquad(squad) {
+            console.log("---Danh sách cầu thủ---")
+            let newArr = squad.map(player => console.log(`${player[0]} (${player[2]}): ${player[1]} bàn thắng`));
+            return newArr;
+        }
+
+        function findPlayer(squad) {
+            let playerName = prompt("Nhập tên cầu thủ:");
+            let found = squad.find(player => player[0] == playerName);
+            if (found) {
+                console.log(`${found[0]} (${found[2]}): ${found[1]} bàn thắng`);
+            } else {
+                alert("Không tìm thấy");
+            }
+        }
+
+        function filteredPlayerbyPosition(squad) {
+            let position = prompt("Nhập vị trí:");
+            let newSquad = squad.filter(player => position == player[2]).map(player => `${player[0]} (${player[2]}): ${player[1]} bàn thắng`);
+            console.log(`---${position}---`);
+            newSquad.forEach(player => {
+                console.log(player);
+            })
+        }
+
+        function reportTotalGoal(squad) {
+            let goals = squad.map(player => player[1]);
+            let totalGoal = goals.reduce((total, goal) => (total + goal), 0);
+            console.log(`Tổng số bàn thắng của cả đội: ${totalGoal}`);
+        }
+        
+        function performanceTesting(squad) {
+            let hasGoal = squad.some(player => player[2] > 0);
+            let allHasGoal = squad.every(player => player[2] > 0);
+            console.log(`Có cầu thủ nào chưa ghi bàn: ${hasGoal? "Có":"Không"}`);
+            console.log(`Có phải tất cả cầu thủ đều ghi bàn: ${allHasGoal? "Đúng":"Sai"}`);
+        }
+    </script>
+</body>
+
+</html>
