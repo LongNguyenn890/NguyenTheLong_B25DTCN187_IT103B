@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 1</title>
+</head>
+<body>
+    <h1>Lesson 1</h1>
+    <script>
+        const player = {
+            name: "Messi",
+            position: "Forward",
+            age: 36,
+            goals: 25,
+            assists: 15,
+        };
+        
+        function showPlayerInfor(player) {
+            console.log(`---Thông tin cầu thủ---`);
+            console.log(`Tên cầu thủ: ${player.name}`);
+            console.log(`Vị trí: ${player.position}`);
+            console.log(`Tuổi: ${player.age}`);
+            console.log(`Bàn thắng mùa này: ${player.goals}`);
+            console.log(`Kiến tạo mùa này: ${player.assists}`);
+            console.log(`Tổng đóng góp: ${player.goals + player.assists}`);
+        }
+        showPlayerInfor(player);
+    </script>
+</body>
+</html>

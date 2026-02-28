@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LS4</title>
+</head>
+
+<body>
+    <h1>Lesson 4</h1>
+    <script>
+        const players = [
+            { name: "Messi", years: 18, salary: 100 },
+            { name: "Ronaldo", years: 20, salary: 95 },
+            { name: "Neymar", years: 12, salary: 90 },
+            { name: "Mbappe", years: 7, salary: 85 },
+            { name: "Haaland", years: 5, salary: 80 },
+            { name: "Modric", years: 22, salary: 70 },
+            { name: "Benzema", years: 19, salary: 75 }
+        ];
+
+        function analyzeSalary(minYears, teamPLayers) {
+            let totalSalery = teamPLayers.filter(player => player.years >= minYears).reduce((total, player) => (total + player.salary), 0);
+
+            let minSalary = teamPLayers.reduce((min, player) => 
+                min.salary > player.salary? player : min
+            );
+
+            let maxSalary = teamPLayers.reduce((max, player) => 
+                max.salary < player.salary? player : max
+            );
+
+            return {
+                totalSalery,
+                minSalary,
+                maxSalary
+            };
+        }
+
+        console.log(analyzeSalary(10,players));
+    </script>
+</body>
+
+</html>

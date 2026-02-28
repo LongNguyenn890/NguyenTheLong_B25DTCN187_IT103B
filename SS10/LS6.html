@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const players = [
+            { name: "Messi", position: "Forward", age: 36, goals: 25, assists: 15, matches: 34, yellowCards: 2 },
+            { name: "Ronaldo", position: "Forward", age: 39, goals: 30, assists: 10, matches: 38, yellowCards: 4 },
+            { name: "Neymar", position: "Forward", age: 32, goals: 18, assists: 20, matches: 32, yellowCards: 3 },
+            { name: "De Bruyne", position: "Midfielder", age: 33, goals: 8, assists: 25, matches: 35, yellowCards: 1 },
+            { name: "Kante", position: "Midfielder", age: 33, goals: 2, assists: 5, matches: 36, yellowCards: 0 },
+            { name: "Van Dijk", position: "Defender", age: 33, goals: 5, assists: 3, matches: 33, yellowCards: 2 },
+            { name: "Alisson", position: "Goalkeeper", age: 31, goals: 0, assists: 1, matches: 37, yellowCards: 0 }
+        ];
+
+        function generateRankingReport(minMatches, players) {
+            let ranking = players
+                .map((player, index) => {
+
+                    let performanceScore = Number(
+                        ((player.goals + player.assists) / player.matches)
+                    );
+
+                    let efficiencyScore = Number(
+                        (
+                            performanceScore -
+                            (player.yellowCards / player.matches)
+                        )
+                    );
+
+                    return {
+                        ...player,
+                        performanceScore: performanceScore.toFixed(2),
+                        efficiencyScore: efficiencyScore.toFixed(2),
+                        originalIndex: index
+                    };
+                })
+                .filter(player => player.matches >= minMatches)
+                .sort((a, b) => {
+
+                    if (b.efficiencyScore !== a.efficiencyScore) {
+                        return b.efficiencyScore - a.efficiencyScore;
+                    }
+
+                    if (b.performanceScore !== a.performanceScore) {
+                        return b.performanceScore - a.performanceScore;
+                    }
+
+                    if (b.goals !== a.goals) {
+                        return b.goals - a.goals;
+                    }
+
+                    return a.originalIndex - b.originalIndex; // stable
+                });
+
+            console.log("\nXẾP HẠNG ĐỘI BÓNG (từ " + minMatches + " trận trở lên)\n");
+
+            ranking.forEach((player, index) => {
+                console.log(
+                    `${index + 1}. ${player.name} - Efficiency: ${player.efficiencyScore} | Performance: ${player.performanceScore} | Goals: ${player.goals}`
+                );
+            });
+
+            console.log("\nTổng số cầu thủ xếp hạng:", ranking.length);
+
+            if (ranking.length > 0) {
+                console.log("Cầu thủ xuất sắc nhất:", ranking[0].name);
+            }
+
+            let top3 = ranking.slice(0, 3);
+
+            if (top3.length > 0) {
+                let avgEfficiency = Number(
+                    (
+                        top3.reduce((sum, p) => (sum + Number(p.efficiencyScore)), 0)
+                        / top3.length
+                    ).toFixed(2)
+                );
+
+                console.log("Trung bình efficiency top 3:", avgEfficiency);
+            }
+        }
+
+        generateRankingReport(30, players);
+
+
+    </script>
+</body>
+
+</html>
