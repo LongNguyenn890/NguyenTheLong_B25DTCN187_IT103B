@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const studentList = [
+            { id: 1, name: "Nguyen Van An", age: 20, gpa: 8.5, status: "active" },
+            { id: 2, name: "Tran Thi Binh", age: 21, gpa: 7.8, status: "active" },
+            { id: 3, name: "Le Hoang Cuong", age: 22, gpa: 9.1, status: "inactive" }
+        ];
+        const createStudent = () => {
+            let name = prompt("Enter name:");
+
+
+            let age = parseInt(prompt("Enter age:"));
+
+
+            let gpa = parseFloat(prompt("Enter GPA:"));
+
+
+            let status = prompt("Enter Active or Inactive");
+
+            let student = {
+                id: studentList.length > 0 ? studentList[studentList.length - 1].id + 1 : 1,
+                name: name,
+                age: age,
+                gpa: gpa,
+                status: status,
+            };
+
+            studentList.push(student);
+        };
+
+        const readAllStudent = (studentList) => {
+            let format = studentList.map((student) => `ID: ${student.id} - Name: ${student.name} - Age: ${student.age} - GPA: ${student.gpa} - Status: ${student.status}`);
+            return alert(format.join("\n"));
+        }
+
+        const filterScholarship = (studentList) => {
+            let gpaAbove8 = studentList.filter(student => student.gpa > 8);
+
+            let output = "===== Scholarship Candiadates (GPA > 8.0) ====\n";
+            gpaAbove8.forEach(student => {
+                output += `ID: ${student.id} - Name: ${student.name} - Age: ${student.age} - GPA: ${student.gpa} - Status: ${student.status}\n`;
+            });
+
+            output += "------------------------------------------------\n";
+            output += `Total: ${gpaAbove8.length} student(s)`;
+            return alert(output);
+        }
+
+        const updateStudent = (studentList) => {
+            let id = parseInt(prompt("Enter Student ID:").trim());
+            if (isNaN(id)) return alert("Invalid Value!!");
+            let findStudent = studentList.find(student => student.id === id);
+            if (!findStudent) {
+                return alert("Not found student!"); 
+            } else {
+                alert(`Found:\n\nID: ${findStudent.id} - Name: ${findStudent.name} - Age: ${findStudent.age} - GPA: ${findStudent.gpa} - Status: ${findStudent.status}`);
+                let newName = prompt(`Enter New Name (Current: ${findStudent.name})`).trim();
+                if (newName !== "") {
+                    findStudent.name = newName;
+                }
+                console.log(findStudent.name);
+                let newGpa = parseFloat(prompt(`Enter New GPA (current:${findStudent.gpa})`).trim());
+                if (newGpa !== "") {
+                    findStudent.gpa = newName;
+                }
+                return alert(`Update Successfully\nID: ${findStudent.id} - Name: ${findStudent.name} - Age: ${findStudent.age} - GPA: ${findStudent.gpa} - Status: ${findStudent.status}`);
+            }
+        }
+
+        const deleteStudent = (studentList) => {
+            let id = parseInt(prompt(`Enter ID: `).trim());
+            if (isNaN(id)) return alert("Invalid Value");
+            let student = studentList.findIndex(student => student.id === id);
+            if (student === -1) {
+                return alert ("Not found Student");
+            } else {
+                let confirm = prompt(`Are you sure you want to delete student\nID: ${studentList[student].id} - Name: ${studentList[student].name} - Age: ${studentList[student].age} - GPA: ${studentList[student].gpa} - Status: ${studentList[student].status}\nType "yes" to confirm:`).trim();
+                if (confirm!=="yes") {
+                    return alert("Delete Cancelling!!");
+                } else {
+                    let deletedStudent = studentList[student].name;
+                    studentList.splice(student, 1);
+                    return  alert(`Student ${studentList[deletedStudent].name} has been deleted`);
+                }
+            }
+        }
+
+        const complianceVerification = studentList => {
+            let hasMinors = studentList.some(student => student.age < 18);
+            let allActive = studentList.every(student => student.status === "active");
+            let result = "==== Compliance Verification ==== \n";
+            result += `Has at least one student under 18 ${hasMinors? "Yes" : "No"}`;
+
+            if (hasMinors) {
+                let minors = studentList.filter(student => student.age < 18);
+                result += ` Minors found: \n`;
+                minors.forEach(student => {
+                    result += `   -> ${student.name} (Age: ${student.age})`;
+                });
+            }
+            result += `\n\nAll student have "active" status: ${allActive? "Yes": "No"}`;
+            if(!allActive) {
+                let inactive = studentList.filter(student => student.status === "inactive");
+                result += `\n   Inactive student: `;
+                inactive.forEach(student => {
+                    result += `\n   -> ${student.name} (Status: ${student.status})`
+                });
+            }
+            return alert(result);
+        }
+
+        const academicStatistics = (studentList) => {
+            if (studentList.length === 0) return alert ("No student in list");
+            let totalGpa = studentList.reduce((total, student) => total + student.gpa, 0);
+            let avgGpa = totalGpa / studentList.length;
+            let highest = studentList.reduce((max, s) => s.gpa > max.gpa ? s: max, studentList[0]);
+            let lowest = studentList.reduce((min, s) => s.gpa < min.gpa ? s: min, studentList[0]);
+            let result = "===== Academic Statistic =====\n";
+            result += `Total Student: ${studentList.length}\n`;
+            result += `Total Gpa: ${totalGpa}\n`;
+            result += `AVG GPA: ${avgGpa}\n`;
+            result += `Highest Gpa: ${highest.name} (GPA: ${highest.gpa})\n`;
+            result += `Lowest GPa: ${lowest.name} (GPA: ${lowest.gpa})`;
+            return alert(result);
+        }
+
+        const dataNormalization = studentList => {
+            let normalized = studentList.map(student => ({
+                ...student,
+                name: student.name.toUpperCase(),
+            }));
+            let result = "==== Data Normalization ====\n";
+            normalized.forEach(s => {
+                result += `ID: ${s.id} - Name: ${s.name} - Age: ${s.age} - GPA: ${s.gpa} - Status: ${s.status}`;
+            });
+            return alert(result);
+        }
+
+
+
+        let choice;
+        do {
+            let menu = "===== STUDENT MANAGEMANT SYSTEM =====\n";
+            menu += "1. Create Student\n";
+            menu += "2. Read All Students\n";
+            menu += "3. Filter Scholarship Candiadates (GPA > 8.0)\n";
+            menu += "4. Update Student Profile\n";
+            menu += "5. Delete Record\n";
+            menu += "6. Compliance Verification\n";
+            menu += "7. Academic Statistics\n";
+            menu += "8. Data Normalization\n";
+            menu += "0. Exit\n";
+            menu += "=========================================\n";
+            menu += "Enter your choice:";
+            choice = Number(prompt(menu));
+
+            switch (choice) {
+                case 1:
+                    createStudent();
+                    break;
+                case 2:
+                    readAllStudent(studentList);
+                    break;
+                case 3:
+                    filterScholarship(studentList);
+                    break;
+                case 4:
+                    updateStudent(studentList);
+                    break;
+                case 5:
+                    deleteStudent(studentList);
+                    break;
+                case 6:
+                    complianceVerification(studentList);
+                    break;
+                case 7:
+                    academicStatistics(studentList);
+                    break;
+                case 8:
+                    dataNormalization(studentList);
+                    break;
+                case 0:
+                    alert("GoodBye");
+                    break;
+                default:
+                    alert("Invalid Value");
+                    break;
+            }
+        } while (choice != 0);
+    </script>
+</body>
+
+</html>
