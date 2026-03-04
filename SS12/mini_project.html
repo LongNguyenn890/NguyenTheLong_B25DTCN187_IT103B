@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const students = [
+            { id: "S01", name: "Nguyen Van A", age: 19, gpa: 8.9, status: "active" },
+            { id: "S02", name: "Tran Thi B", age: 18, gpa: 7.5, status: "active" },
+            { id: "S03", name: "Le Van C", age: 21, gpa: 6.2, status: "active" },
+            { id: "S04", name: "Pham Thi D", age: 20, gpa: 0, status: "inactive" },
+            { id: "S05", name: "Hoang Van E", age: 22, gpa: 2.8, status: "active" },
+            { id: "S06", name: "Do Thi F", age: 17, gpa: 9.1, status: "active" },
+            { id: "S07", name: "Bui Van G", age: 25, gpa: 4.9, status: "inactive" },
+            { id: "S08", name: "Vu Thi H", age: 23, gpa: 8.4, status: "active" },
+            { id: "S09", name: "Dang Van I", age: 28, gpa: 7.0, status: "active" },
+            { id: "S10", name: "Nguyen Thi K", age: 16, gpa: 5.5, status: "active" },
+        ];
+
+
+        function createStudent() {
+            let id, name, age, gpa, status;
+            while (true) {
+                id = prompt("Nhập ID:");
+                if (id === null || id.trim() === "") {
+                    alert("Không được để trống");
+                    continue;
+                }
+                let findId = students.find(s => s.id === id);
+                if (!findId) {
+                    alert("Không tìm thấy ID");
+                    continue;
+                }
+                break;
+            }
+
+            while (true) {
+                name = prompt('Nhập tên');
+                if (name == null || name.trim() === "") {
+                    alert("Tên không được để trống")
+                    continue;
+                }
+                break;
+            }
+
+            while (true) {
+                age = prompt("Nhập tuổi: ");
+                if (age === null || age.trim() === "") {
+                    alert("Không được để trống");
+                    continue;
+                }
+                age = Number(age);
+                if (isNaN(age)) {
+                    alert("Chỉ được nhập số");
+                    continue;
+                }
+                if (!Number.isInteger(age)) {
+                    alert("Chỉ được nhập số nguyên");
+                    continue;
+                }
+                if (age < 16 || age > 60) {
+                    alert("Tuổi trong khoảng 16 - 60");
+                    continue;
+                }
+                break;
+            }
+
+
+            while (true) {
+                gpa = Number(prompt("Enter GPA:"));
+                if (isNaN(gpa) || gpa < 0 || gpa > 10) {
+                    alert("GPA must be between 0 and 10!");
+                    continue;
+                }
+                break;
+            }
+
+
+
+            while (true) {
+                status = prompt("Enter Status (active/inactive):");
+                if (!status || status.trim() === "") {
+                    alert("Status cannot be empty!");
+                    continue;
+                }
+
+                status = status.trim().toLowerCase();
+
+                if (status !== "active" && status !== "inactive") {
+                    alert("Status must be 'active' or 'inactive'!");
+                    continue;
+                }
+                break;
+            }
+
+            const newStudent = {
+                id,
+                name,
+                age,
+                gpa,
+                status,
+                createdAt: new Date()
+            };
+
+            students.push(newStudent);
+            alert("Student created successfully!");
+
+        }
+
+
+        function updateStudent() {
+            let id = prompt("Enter ID to update:");
+
+            if (!id || id.trim() === "") {
+                alert("ID cannot be empty!");
+                return;
+            }
+
+            id = id.trim().toUpperCase();
+
+            const student = students.find(s => s.id === id);
+
+            if (!student) {
+                alert("Student not found!");
+                return;
+            }
+
+
+            let name = prompt("Enter new Name (leave blank to keep current):");
+            if (name && name.trim() !== "") {
+                student.name = name.trim();
+            }
+
+            let ageInput = prompt("Enter new Age (leave blank to keep current):");
+            if (ageInput && ageInput.trim() !== "") {
+                let age = Number(ageInput);
+                if (isNaN(age) || age < 16 || age > 60) {
+                    alert("Invalid age! Must be between 16 and 60.");
+                    return;
+                }
+                student.age = age;
+            }
+
+            let gpaInput = prompt("Enter new GPA (leave blank to keep current):");
+            if (gpaInput && gpaInput.trim() !== "") {
+                let gpa = Number(gpaInput);
+                if (isNaN(gpa) || gpa < 0 || gpa > 10) {
+                    alert("Invalid GPA! Must be between 0 and 10.");
+                    return;
+                }
+                student.gpa = gpa;
+            }
+
+            let statusInput = prompt("Enter new Status (active/inactive, leave blank to keep current):");
+            if (statusInput && statusInput.trim() !== "") {
+                let status = statusInput.trim().toLowerCase();
+                if (status !== "active" && status !== "inactive") {
+                    alert("Status must be 'active' or 'inactive'!");
+                    return;
+                }
+                student.status = status;
+            }
+
+            // Cập nhật thời gian
+            student.updatedAt = new Date();
+
+            alert("Student updated successfully!");
+        }
+
+        function deleteStudent() {
+            let id = prompt("Enter ID to delete:");
+
+            if (!id || id.trim() === "") {
+                alert("ID cannot be empty!");
+                return;
+            }
+
+            id = id.trim().toUpperCase();
+
+            const student = students.find(s => s.id === id);
+
+            if (!student) {
+                alert("Student not found!");
+                return;
+            }
+            let confirmDelete = prompt("Type 'yes' to confirm delete:");
+
+            if (confirmDelete && confirmDelete.trim().toLowerCase() === "yes") {
+                student.status = "inactive";
+                student.deletedAt = new Date();
+
+                alert("Student deleted successfully (soft delete).");
+            } else {
+                alert("Delete cancelled.");
+            }
+        }
+
+        function restoreStudent() {
+            let id = prompt("Enter ID to restore:");
+
+            if (!id || id.trim() === "") {
+                alert("ID cannot be empty!");
+                return;
+            }
+
+            id = id.trim().toUpperCase();
+
+            const student = students.find(s => s.id === id);
+
+            if (!student) {
+                alert("Student not found!");
+                return;
+            }
+
+
+            if (student.status === "inactive" && student.deletedAt != null) {
+
+                student.status = "active";
+                student.deletedAt = null;
+                student.updatedAt = new Date();
+
+                alert("Student restored successfully!");
+            } else {
+                alert("Cannot restore. Student is not deleted.");
+            }
+        }
+
+        function searchStudents(studentList) {
+            let keyword = prompt("Enter name to search (leave blank to skip):");
+
+            if (!keyword || keyword.trim() === "") {
+                return studentList;
+            }
+
+            keyword = keyword.trim().toLowerCase();
+
+            return studentList.filter(student =>
+                student.name.toLowerCase().includes(keyword)
+            );
+        }
+
+        function filterStudents(studentList) {
+            let status = prompt("Filter by status (active/inactive, leave blank to skip):");
+
+            if (!status || status.trim() === "") {
+                return studentList;
+            }
+
+            status = status.trim().toLowerCase();
+
+            if (status !== "active" && status !== "inactive") {
+                alert("Invalid status! Skipping filter.");
+                return studentList;
+            }
+
+            return studentList.filter(student => student.status === status);
+        }
+
+
+        function sortStudents(studentList) {
+            let order = prompt("Sort by GPA (asc/desc, leave blank to skip):");
+
+            if (!order || order.trim() === "") {
+                return [...studentList];
+            }
+
+            order = order.trim().toLowerCase();
+
+            const clonedList = [...studentList];
+
+            if (order === "asc") {
+                clonedList.sort((a, b) => a.gpa - b.gpa);
+            } else if (order === "desc") {
+                clonedList.sort((a, b) => b.gpa - a.gpa);
+            } else {
+                alert("Invalid sort option! Skipping sort.");
+            }
+
+            return clonedList;
+        }
+
+        function paginate(studentList) {
+            let pageSize = Number(prompt("Enter page size:"));
+            let pageNumber = Number(prompt("Enter page number:"));
+
+            if (isNaN(pageSize) || pageSize <= 0) {
+                alert("Invalid page size. Default = 5");
+                pageSize = 5;
+            }
+
+            const totalRecords = studentList.length;
+            const totalPages = Math.max(1, Math.ceil(totalRecords / pageSize));
+
+            if (isNaN(pageNumber) || pageNumber < 1) {
+                pageNumber = 1;
+            }
+
+            if (pageNumber > totalPages) {
+                pageNumber = totalPages;
+            }
+
+            const startIndex = (pageNumber - 1) * pageSize;
+            const endIndex = startIndex + pageSize;
+
+            const pageData = studentList.slice(startIndex, endIndex);
+
+            console.log("===== PAGINATION INFO =====");
+            console.log("Current Page:", pageNumber, "/", totalPages);
+            console.log("Total Records:", totalRecords);
+            console.log("Data:", pageData);
+
+            return pageData;
+        }
+
+        function viewStudent() {
+            let result = [...students];
+
+            result = searchStudents(result);
+            result = filterStudents(result);
+            result = sortStudents(result);
+            paginate(result);
+        }
+
+        function viewReport(studentList) {
+
+            console.log("=== ANALYTICS DASHBOARD ===");
+
+            const total = studentList.length;
+            const active = studentList.filter(s => s.status === "active");
+            const inactive = studentList.filter(s => s.status === "inactive");
+
+            const overview = {
+                total,
+                active: active.length,
+                inactive: inactive.length
+            };
+
+            console.log("1) Overview:", overview);
+
+            
+            const avg = list =>
+                list.length
+                    ? (list.reduce((sum, s) => sum + s.gpa, 0) / list.length).toFixed(2)
+                    : 0;
+
+            const gpaMetrics = {
+                systemAvg: avg(studentList),
+                activeAvg: avg(active),
+                inactiveAvg: avg(inactive)
+            };
+
+            console.log("2) GPA Metrics:", gpaMetrics);
+
+          
+            const top5GPA = [...studentList]
+                .sort((a, b) => b.gpa - a.gpa)
+                .slice(0, 5);
+
+            console.log("3) Top 5 GPA:");
+            console.log(`=== TOP 5 GPA (count: ${top5GPA.length}) ===`);
+            console.log(top5GPA);
+
+            
+            const top5Youngest = [...studentList]
+                .sort((a, b) => a.age - b.age)
+                .slice(0, 5);
+
+            console.log("4) Top 5 Youngest:");
+            console.log(`=== TOP 5 YOUNGEST (count: ${top5Youngest.length}) ===`);
+            console.log(top5Youngest);
+
+            
+            const gpaZero = studentList.filter(s => s.gpa === 0);
+            const gpaBelow3 = studentList.filter(s => s.gpa < 3.0);
+
+            const riskReport = {
+                zeroCount: gpaZero.length,
+                below3Count: gpaBelow3.length
+            };
+
+            console.log("5) Risk Report:", riskReport);
+
+            console.log(`=== RISK: GPA = 0 (count: ${gpaZero.length}) ===`);
+            console.log(gpaZero);
+
+            console.log(`=== RISK: GPA < 3.0 (count: ${gpaBelow3.length}) ===`);
+            console.log(gpaBelow3);
+
+
+            const distribution = {
+                excellent: 0,
+                good: 0,
+                average: 0,
+                weak: 0
+            };
+
+            studentList.forEach(s => {
+                if (s.gpa >= 8) distribution.excellent++;
+                else if (s.gpa >= 6.5) distribution.good++;
+                else if (s.gpa >= 5) distribution.average++;
+                else distribution.weak++;
+            });
+
+            console.log("6) Academic Distribution:", distribution);
+        }
+        const main = () => {
+            let choice;
+            do {
+                let menu = "===== STUDENT MANAGER ADVANCED =====\n";
+                menu += "1. Create Student\n";
+                menu += "2. Update Student\n";
+                menu += "3. Soft Delete Student\n";
+                menu += "4. Restore Student"
+                menu += "4. View Student\n";
+                menu += "5. Anallytics DashBoard\n";
+                menu += "7. Exit";
+                choice = Number(prompt(menu));
+
+                switch (choice) {
+                    case 1:
+                        createStudent();
+                    case 2:
+                        updateStudent();
+                        break;
+
+                    case 3: 
+                        deleteStudent();
+                        break;
+
+                    case 4:
+                        restoreStudent();
+                        break;
+                    case 5:
+                        viewStudent();
+                        break;
+                    case 6:
+                        viewReport();
+                        break;
+                    case 7:
+                        alert("Goodbye");
+                        break;
+                    default:
+                        alert("Invalid Value!");
+                        break;
+                }
+
+            } while (choice != 7);
+        }
+
+        main()
+    </script>
+</body>
+
+</html>
