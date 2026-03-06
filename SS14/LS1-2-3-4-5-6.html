@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #product-list {
+            display: flex;
+            gap: 30px;
+        }
+
+        .product {
+            border: 1px solid black;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80%;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        .sort-controls {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+
+<body>
+    <h1>Danh Sách Sản Phẩm Chợ Tết</h1>
+    <div class="container">
+        <ul id="product-list">
+            <!-- Danh sách sản phẩm -->
+        </ul>
+
+        <form id="product-form">
+            <input type="text" id="product-name" placeholder="Tên sản phẩm">
+            <input type="number" id="product-price" placeholder="Giá (VND)">
+            <button type="submit" id="btn">Thêm Sản Phẩm</button>
+        </form>
+        <div class="sort-controls">
+            <button id="sort-asc">Sắp xếp giá: Thấp → Cao</button>
+            <button id="sort-desc">Sắp xếp giá: Cao → Thấp</button>
+        </div>
+        <input type="text" id="search-input" placeholder="Tìm sản phẩm...">
+    </div>
+
+
+
+    <script>
+        let products = [
+            { id: 1, name: "Bánh Chưng", price: 150000 },
+            { id: 2, name: "Giò Lụa", price: 180000 },
+            { id: 3, name: "Cành Đào", price: 500000 },
+            { id: 4, name: "Mứt Tết", price: 120000 },
+            { id: 5, name: "Bao Lì Xì", price: 25000 },
+            { id: 6, name: "Dưa Hấu Tết", price: 80000 },
+        ];
+        const productList = document.getElementById("product-list");
+        const productName = document.getElementById("product-name");
+        const productPrice = document.getElementById("product-price");
+        const addBtn = document.getElementById("btn");
+        const searchInput = document.getElementById("search-input");
+        const sortAsc = document.getElementById("sort-asc");
+        const sortDesc = document.getElementById("sort-desc");
+
+        function fortmatMoney(money) {
+            return Number(money).toLocaleString("vi-VN") + "VND";
+        }
+
+        //LS1
+        function showProduct() {
+            productList.innerHTML = "";
+            products.forEach((item) => {
+                const product = document.createElement("div");
+                product.className = "product";
+                product.innerHTML = `
+                <h3>${item.name}</h3>
+                <p>${fortmatMoney(item.price)} </p>
+                <button onclick = "delProduct(${item.id})">Xóa sản phẩm</button>
+                <button onclick = "changePrice(${item.id})">Sửa giá</button>
+                `;
+                productList.appendChild(product);
+            });
+
+
+        }
+
+        // LS2
+        function addProduct(e) {
+            e.preventDefault();
+            let inputProduct = productName.value;
+            let inputPrice = productPrice.value;
+            let newProduct = {
+                id: products.length === 0 ? 1 : products[products.length - 1].id + 1,
+                name: inputProduct,
+                price: inputPrice,
+            }
+
+            products.push(newProduct);
+            showProduct();
+        }
+
+
+        //LS3
+        function delProduct(productId) {
+            let product = products.find(p => p.id === productId);
+            if (product) {
+                products = products.filter(p => p.id !== productId);
+                showProduct();
+            }
+        }
+
+
+        //LS4
+        function changePrice(productId) {
+            let product = products.find(p => p.id === productId);
+            if (product) {
+                let price = prompt("Nhập giá mới");
+                product.price = price;
+                showProduct();
+            }
+        }
+
+        
+        //LS6
+        function sortasc() {
+            products.sort((a,b) => {
+                return a.price - b.price;
+            });
+            showProduct();
+        }
+
+        function sortdesc() {
+            products.sort((a,b) => {
+                return b.price - a.price;
+            });
+            showProduct();
+        }   
+
+        //LS5
+        function searchProduct() {
+            let input = searchInput.value.toLowerCase();
+            let items = document.querySelectorAll(".product");
+            items.forEach(item => {
+                let name = item.querySelector("h3").textContent.toLowerCase();
+                if (name.includes(input)) {
+                    item.style.display = "block";
+                } else {
+                    item.style.display = "none";
+                }
+            });
+        }
+
+
+
+
+
+        function init() {
+            showProduct();
+            addBtn.addEventListener("click", addProduct);
+            searchInput.addEventListener("keyup", (e) => {
+                if (e.key === "Enter") {
+                    searchProduct();
+                } else if (e.key === "Escape") {
+                    showProduct();
+                }
+            });
+
+            sortAsc.addEventListener("click", sortasc);
+            sortDesc.addEventListener("click", sortdesc);
+
+        }
+
+        init();
+
+
+    </script>
+</body>
+
+</html>
