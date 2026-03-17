@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .card-container {
+            background-color: antiquewhite;
+            width: 600px;
+            border-radius: 18px;
+            padding: 20px;
+            margin: 50px auto;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 18px;
+        }
+
+        .card-header {
+            text-align: center;
+            background-color: #d43030;
+            width: 100%;
+            border-radius: 18px 18px 0 0;
+            color: #ffffff;
+            padding: 20px;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .card-content {
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+
+        .list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card-text {
+            display: flex;
+            justify-content: space-between;
+            background-color: antiquewhite;
+            padding: 18px;
+            font-size: 18px;
+            border-radius: 18px;
+            border-left: 4px solid #e87d10;
+        }
+
+        .card-footer p {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card-container">
+        <div class="card">
+            <div class="card-header">
+                <h1>Chuẩn bị Tết Nguyên Đán</h1>
+                <p>Danh sách việc cần làm</p>
+            </div>
+            <div class="card-content">
+                <ul class="list" id = "todo-list">
+                    <li class="card-text">
+                        <p class="text">Mua bánh trưng</p>
+                        <p class="done">Chưa làm</p>
+                    </li>
+                    <li class="card-text">
+                        <p class="text">Mua bánh trưng</p>
+                        <p class="done">Chưa làm</p>
+                    </li>
+                    <li class="card-text">
+                        <p class="text">Mua bánh trưng</p>
+                        <p class="done">Chưa làm</p>
+                    </li>
+                    <li class="card-text">
+                        <p class="text">Mua bánh trưng</p>
+                        <p class="done">Chưa làm</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-footer">
+                <p>Đã lưu vào localStorage lần đầu tiên . Refresh trang để kiểm tra</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        const todos = [
+            { id: 1, task: "Mua bánh chung", done: false },
+            { id: 2, task: "Dọn nhà đón Tết", done: false },
+            { id: 3, task: "Gói bánh chung", done: false },
+            { id: 4, task: "Trang trí nhà cửa", done: false },
+        ];
+
+        const todoList = document.getElementById("todo-list");
+
+        function renderTodoList(data) {
+            todoList.innerHTML = "";
+            data.forEach(todo => {
+                const li = document.createElement("li");
+                li.className = "card-text";
+                li.innerHTML = `
+                        <p class="text">${todo.task}</p>
+                        <p class="done">${todo.done === false ? "Chưa làm" : "Hoàn thành"}</p>
+                `
+                todoList.appendChild(li);
+            });
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            const storedTodos = localStorage.getItem("myTodos");
+
+            if (!storedTodos) {
+                localStorage.setItem("myTodos", JSON.stringify(todos));
+
+                renderTodoList(todos);
+            } else {
+                const data = JSON.parse(storedTodos) || [];
+
+                renderTodoList(data);
+            }
+        });
+    </script>
+</body>
+
+</html>

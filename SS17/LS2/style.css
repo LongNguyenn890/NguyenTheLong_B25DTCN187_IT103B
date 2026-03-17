@@ -1,0 +1,115 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 600px;
+    background-color: antiquewhite;
+    border-radius: 18px;
+    margin: 100px auto;
+    padding: 20px;
+}
+
+li {
+    list-style: none;
+}
+
+.header {
+    text-align: center;
+    background-color: #c72827;
+    border-radius: 18px 18px 0 0;
+    padding: 20px;
+    color: #ffffff;
+}
+
+.header h1 {
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 18px;
+}
+
+.todo-container {
+    background-color: #ffffff;
+}
+
+.todo-list {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+    font-size: 18px;
+}
+
+.todo {
+    background-color: #fffee7;
+    padding: 18px;
+    border-radius: 15px;
+    border-left: 5px solid #ea800f;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.del-btn,.edit-btn {
+    font-size: 20px;
+    border: none;
+    background-color: #fffee7;
+}
+
+.todo span {
+    margin-left: 10px;
+    margin-right: px;
+}
+
+.todo div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.done {
+    background-color: #e8f5ea;
+    text-decoration: line-through;
+    border-left: 5px solid #5f9f65;
+}
+input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    font-family: 18px;
+    border-top: 1px solid black;
+    margin-top: 10px;
+}
+
+.add-box {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+}
+
+.search-input {
+    width: 80%;
+    padding: 12px 5px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ffffff;
+}
+
+.add-btn {
+    width: 20%;
+    border-radius: 8px;
+    font-size: 18px;
+    color: #ffffff;
+    background-color: #f67d01;
+    border: none;
+}
